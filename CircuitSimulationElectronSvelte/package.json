@@ -6,7 +6,7 @@
   "main": "dist/main/main.cjs",
   "scripts": {
     "dev:renderer": "vite packages/renderer",
-    "build:renderer": "tsc -p packages/renderer/tsconfig.json --noEmit && vite build packages/renderer",
+    "build:renderer": "vite build packages/renderer",
     "build:preload": "tsc -p packages/preload/tsconfig.json --noEmit && vite build packages/preload",
     "build:main": "tsc -p packages/main/tsconfig.json --noEmit && vite build packages/main",
     "build": "npm run build:renderer && npm run build:preload && npm run build:main",
@@ -16,6 +16,7 @@
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "@tsconfig/svelte": "^4.0.1",
     "electron": "^14.2.9",
+    "sv-bootstrap-modal": "^1.0.3",
     "svelte": "^3.58.0",
     "svelte-check": "^3.3.1",
     "svelte-preprocess": "^5.0.4",
@@ -24,6 +25,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "jquery": "^3.7.0",
     "node-path": "^0.0.3",
     "path": "^0.12.7"
   }
