@@ -2275,26 +2275,15 @@ simcir.$ = function() {
 
     $placeHolder.append($table);
   };
+  
   // auto start of the program
-  $(function() {
-    /*$('.simcir').each(function() {
+  /*$(function() {
+    $('.simcir').each(function() {
       var $placeHolder = $(this);
       var text = $placeHolder.text().replace(/^\s+|\s+$/g, '');
       setupSimcir($placeHolder, JSON.parse(text || '{}') );
-    });*/
-
-    // check for local storage support
-    if (typeof(Storage) !== "undefined") {
-      // check if there are stored items
-      if (localStorage.getItem("allRegisteredDevices") !== null) {
-        var allRegisteredDevices = JSON.parse(localStorage.getItem("allRegisteredDevices"));
-        for (var registeredDevice of allRegisteredDevices){
-          registerDevice(registeredDevice.cirucuitName, registeredDevice.circuitData)
-        }
-        sessionStorage.setItem("simcir", JSON.stringify(simcir));
-      }
-    }     
-  });
+    });
+  });*/
 
   $(function() {
     $('.simcir-doc').each(function() {
@@ -2530,6 +2519,18 @@ simcir.$ = function() {
       };
     };
   };
+
+  // register user-defined devices
+  // check for local storage support
+  if (typeof(Storage) !== "undefined") {
+    // check if there are stored items
+    if (localStorage.getItem("allRegisteredDevices") !== null) {
+      var allRegisteredDevices = JSON.parse(localStorage.getItem("allRegisteredDevices"));
+      for (var registeredDevice of allRegisteredDevices){
+        $s.registerDevice(registeredDevice.cirucuitName, registeredDevice.circuitData);
+      }
+    }
+  } 
 
   // register built-in devices
   $s.registerDevice('In', createPortFactory('in') );
