@@ -6,7 +6,7 @@
   "main": "dist/main/main.cjs",
   "scripts": {
     "dev:renderer": "vite packages/renderer",
-    "build:renderer": "vite build packages/renderer",
+    "build:renderer": "tsc -p packages/renderer/tsconfig.json --noEmit && vite build packages/renderer",
     "build:preload": "tsc -p packages/preload/tsconfig.json --noEmit && vite build packages/preload",
     "build:main": "tsc -p packages/main/tsconfig.json --noEmit && vite build packages/main",
     "build": "npm run build:renderer && npm run build:preload && npm run build:main",

@@ -1,6 +1,5 @@
 import jQuery from "jquery";
 import { 
-    simcir, 
     isRegisterDeviceDialogueBoxOpen,
     isUnregisterDeviceDialogueBoxOpen,
     isNewDeviceDialogueBoxOpen
@@ -9,26 +8,17 @@ import {
     getCircuitData, 
     setCircuitData 
 } from "./canvas";
+import { simcir } from '../external/js/simcir.js'
 
-let simcirValue: any;
-simcir.subscribe((value) => {
-    simcirValue = value;
-});
 
 export function zoomInClick () {
-    simcir.update((value) => {
-        value.unit = value.unit + 2;
-        value.fontSize = value.fontSize + 2;
-        return value;
-    });
+    simcir.unit = simcir.unit + 2;
+    simcir.fontSize = simcir.fontSize + 2;
     setCircuitData(getCircuitData());
 }
 export function zoomOutClick () {
-    simcir.update((value) => {
-        value.unit = value.unit - 2;
-        value.fontSize = value.fontSize - 2;
-        return value;
-    });
+    simcir.unit = simcir.unit - 2;
+    simcir.fontSize = simcir.fontSize - 2;
     setCircuitData(getCircuitData());
 }
 export function registerDeviceFormSubmit () {
@@ -56,7 +46,7 @@ export function registerDeviceFormSubmit () {
     circuitData.height = circuitHeight;
 
     // helper functions
-    var findDevice = function (name) {
+    var findDevice = function (name: string) {
         var index = -1;
         jQuery.each(jQuery(".simcir-device").children(".simcir-device-label"), function (key, value) {
             if (value.innerHTML == name) {
@@ -66,7 +56,7 @@ export function registerDeviceFormSubmit () {
         });
         return jQuery(".simcir-device").get(index);
     }
-    var normalize = function (val, max, min) {
+    var normalize = function (val: number, max: number, min: number) {
         if (max == min) {
             return 0.5;
         }
@@ -94,13 +84,13 @@ export function registerDeviceFormSubmit () {
         var deviceWidth = deviceElement.children[0].width.baseVal.value;
         var deviceHeight = deviceElement.children[0].height.baseVal.value;
 
-        device.x = (device.x == 0) ? device.x + simcirValue.unit : device.x;
-        device.x = (device.x + deviceWidth + simcirValue.fontSize >= circuitWidth) ? circuitWidth - deviceWidth - simcirValue.unit - simcirValue.fontSize : device.x;
-        device.y = (device.y == 0) ? device.y + simcirValue.unit : device.y;
-        device.y = (device.y + deviceHeight + simcirValue.fontSize >= circuitHeight) ? circuitHeight - deviceHeight - simcirValue.unit - simcirValue.fontSize : device.y;
+        device.x = (device.x == 0) ? device.x + simcir.unit : device.x;
+        device.x = (device.x + deviceWidth + simcir.fontSize >= circuitWidth) ? circuitWidth - deviceWidth - simcir.unit - simcir.fontSize : device.x;
+        device.y = (device.y == 0) ? device.y + simcir.unit : device.y;
+        device.y = (device.y + deviceHeight + simcir.fontSize >= circuitHeight) ? circuitHeight - deviceHeight - simcir.unit - simcir.fontSize : device.y;
     }
-
-    simcirValue.registerDevice(cirucuitName, circuitData);
+    
+    simcir.registerDevice(cirucuitName, circuitData);
 
     // check for local storage support
     if (typeof (Storage) !== "undefined") {
@@ -124,7 +114,6 @@ export function registerDeviceFormSubmit () {
 
     circuitData = getCircuitData();
     circuitData.toolbox = [{ "type": cirucuitName }, ...circuitData.toolbox];
-    simcir.set(simcirValue);
     setCircuitData(circuitData);
 
     registerDeviceForm.reset();
@@ -152,8 +141,8 @@ export function newDeviceFormSubmit () {
         'type': deviceType,
         'numInputs': numberOfInputs,
         'id': `dev${circuitData.devices.length}`,
-        'x': simcirValue.unit,
-        'y': simcirValue.unit,
+        'x': simcir.unit,
+        'y': simcir.unit,
         'label': deviceLabel
     });
 
@@ -189,13 +178,13 @@ export function unregisterDeviceFormSubmit() {
     let circuitData = getCircuitData();
 
     let ids = [];
-    circuitData.toolbox = circuitData.toolbox.filter(device => device.type !== registeredDevice);
-    circuitData.devices = circuitData.devices.filter((device) => {
+    circuitData.toolbox = circuitData.toolbox.filter((device: { type: string; id: string}) => device.type !== registeredDevice);
+    circuitData.devices = circuitData.devices.filter((device: { type: string; id: string}) => {
         if (device.type === registeredDevice)
             ids.push(device.id);
         return device.type !== registeredDevice;
     });
-    circuitData.connectors = circuitData.connectors.filter((connector) => {
+    circuitData.connectors = circuitData.connectors.filter((connector: { from: string; to: string; }) => {
         return !ids.includes(connector.from.split(".", 1)[0]) &&
             !ids.includes(connector.to.split(".", 1)[0]);
     });

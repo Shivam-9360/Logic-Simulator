@@ -1,20 +1,16 @@
-import { simcir, simcirDiv } from "./stores";
+import { simcir } from '../external/js/simcir.js'
 
-let simcirValue: any;
-let simcirDivValue: any;
-simcir.subscribe((currentValue) => {
-    simcirValue = currentValue;
-});
-simcirDiv.subscribe((currentValue) => {
-    simcirDivValue = currentValue;
-});
+let simcirDiv: HTMLElement = document.querySelector(".simcir");
 
+export function setSimcirDiv(){
+    simcirDiv = document.querySelector(".simcir");
+}
 export function getCircuitData () {
-    return simcirValue.controller(
-        [simcirDivValue.querySelector(".simcir-workspace")]).data();
+    return simcir.controller(
+        [simcirDiv.querySelector(".simcir-workspace")]).data();
 };
 export function setCircuitData (data) {
-    simcirValue.setupSimcir([simcirDivValue], data);
+    simcir.setupSimcir([simcirDiv], data);
 };
 export function windowResize () {
     var circuitData = getCircuitData();

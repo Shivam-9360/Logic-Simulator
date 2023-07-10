@@ -16,7 +16,7 @@
 
 'use strict';
 
-var simcir = {};
+export var simcir = {};
 
 //
 // https://github.com/kazuhikoarase/lessQuery

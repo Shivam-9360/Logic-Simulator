@@ -1,12 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { simcir, simcirDiv } from "../assets/stores";
-    import { setCircuitData, windowResize } from "../assets/canvas";
+    import { setSimcirDiv, setCircuitData, windowResize } from "../assets/canvas";
 
     onMount(() => {
-        $simcir = window.simcir;
-        $simcirDiv = document.querySelector(".simcir");
-
+        setSimcirDiv();
         setCircuitData({
             "width": window.innerWidth,
             "height": window.innerHeight - document.querySelector(".navbar").clientHeight
