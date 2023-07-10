@@ -2,6 +2,7 @@ import { join } from 'node:path'
 import { builtinModules } from 'node:module'
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,7 +10,11 @@ export default defineConfig({
   // Please note that `__dirname = packages/renderer` in this context.
   root: __dirname,
   base: './',
-
+  resolve: {
+    alias: {
+      '~bootstrap': './node_modules/bootstrap',
+    }
+  },
   build: {
     sourcemap: true,
     emptyOutDir: true,
