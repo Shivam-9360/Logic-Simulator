@@ -1,42 +1,59 @@
 <script lang="ts">
   import { 
-    isRegisterDeviceDialogueBoxOpen,
-    isUnregisterDeviceDialogueBoxOpen,
-    isNewDeviceDialogueBoxOpen
-  } from "../assets/stores";
+      FormGroup, 
+      Label, 
+      Input, 
+      Navbar, 
+      NavbarBrand, 
+      NavbarToggler, 
+      Collapse, 
+      Nav, 
+      Dropdown, 
+      DropdownItem, 
+      DropdownMenu, 
+      DropdownToggle 
+  } from "sveltestrap";
+  import { 
+      isRegisterDeviceDialogueBoxOpen,
+      isUnregisterDeviceDialogueBoxOpen,
+      isNewDeviceDialogueBoxOpen
+  } from "../assets/stores";    
   import * as eventHandler from '../assets/menubar';
-  import DialogueBox from './DialogueBox.svelte';
+  import DialogueBox from "./DialogueBox.svelte";
+
+  let isMenuBarOpen: boolean = true;
 </script>
 
-<DialogueBox 
+<DialogueBox
   dialogueBoxName="Resgister Device" 
   bind:isOpen={$isRegisterDeviceDialogueBoxOpen}
   on:submit={eventHandler.registerDeviceFormSubmit}
 >
-  <div class="form-group">
-    <label for="deviceName" class="col-form-label">Device Name:</label>
-    <input type="text" class="form-control" id="deviceName" required>
-  </div>
-  <div class="form-group">
-    <label for="deviceWidth" class="col-form-label">Circuit Width:</label>
-    <input type="number" class="form-control" id="deviceWidth" min="200" max="600" required>
-  </div>
-  <div class="form-group">
-    <label for="deviceHeight" class="col-form-label">Circuit Height:</label>
-    <input type="number" class="form-control" id="deviceHeight" min="200" max="600" required>
-  </div> 
+  <FormGroup>
+    <Label for="deviceName">Device Name:</Label>
+    <Input type="text" id="deviceName" required />
+  </FormGroup>   
+  <FormGroup>
+    <Label for="deviceWidth">Circuit Width:</Label>
+    <Input type="number" id="deviceWidth" min={200} max={600} required />
+  </FormGroup> 
+  <FormGroup>
+    <Label for="deviceHeight">Circuit Height:</Label>
+    <Input type="number" id="deviceHeight" min={200} max={600} required />
+  </FormGroup> 
 </DialogueBox>
 
 <DialogueBox 
   dialogueBoxName="Unresgister Device" 
   bind:isOpen={$isUnregisterDeviceDialogueBoxOpen}
-  onOpen={eventHandler.onUnregisterDeviceDialogueBoxOpen}
   on:submit={eventHandler.unregisterDeviceFormSubmit}
+  onOpen={eventHandler.onUnregisterDeviceDialogueBoxOpen}
 >
-  <div class="form-group">
-    <label for="selectRegisteredDevice">Select Device</label>
-    <select class="form-control" id="selectRegisteredDevice">
-  </select>
+  <FormGroup>
+    <Label for="selectRegisteredDevice">Select</Label>
+    <Input type="select" id="selectRegisteredDevice">
+    </Input>
+  </FormGroup>
 </DialogueBox>
 
 <DialogueBox 
@@ -44,61 +61,53 @@
   bind:isOpen={$isNewDeviceDialogueBoxOpen}
   on:submit={eventHandler.newDeviceFormSubmit}
 >
-  <div class="form-group">
-    <label for="selectNewDevice">Select Device</label>
-    <select class="form-control" id="selectNewDevice">
+  <FormGroup>
+    <Label for="selectNewDevice">Select</Label>
+    <Input type="select" id="selectNewDevice">
       <option>AND</option>
       <option>NAND</option>
       <option>OR</option>
       <option>NOR</option>
       <option>XOR</option>
       <option>XNOR</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="deviceLabel" class="col-form-label">Device Label:</label>
-    <input type="text" class="form-control" id="deviceLabel" required>
-  </div>
-  <div class="form-group">
-    <label for="numberOfInputs" class="col-form-label">Number of inputs:</label>
-    <input type="number" class="form-control" id="numberOfInputs" min="2" required>
-  </div>
+    </Input>
+  </FormGroup>
+  <FormGroup>
+    <Label for="deviceLabel">Device Name:</Label>
+    <Input type="text" id="deviceLabel" required />
+  </FormGroup>  
+  <FormGroup>
+    <Label for="numberOfInputs">Circuit Height:</Label>
+    <Input type="number" id="numberOfInputs" min={2} required />
+  </FormGroup> 
 </DialogueBox>
 
 <!-- Menu Bar -->
-<nav class="navbar sticky-top navbar-expand navbar-light bg-light">
-  <span class="navbar-brand">Circuit Simulation</span>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapsingContent" aria-controls="navbarCollapsingContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarCollapsingContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <span class="nav-link dropdown-toggle" id="navbarViewMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          View
-        </span>
-        <div class="dropdown-menu" aria-labelledby="navbarViewMenu">
-          <button class="dropdown-item" on:click={eventHandler.zoomInClick}>Zoom In</button>
-          <button class="dropdown-item" on:click={eventHandler.zoomOutClick}>Zoom Out</button>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <span class="nav-link dropdown-toggle" id="navbarToolsMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tools
-        </span>
-        <div class="dropdown-menu" aria-labelledby="navbarToolsMenu">
-          <button class="dropdown-item" on:click={() => ($isRegisterDeviceDialogueBoxOpen = true)}>Register Device</button>
-          <button class="dropdown-item" on:click={() => ($isUnregisterDeviceDialogueBoxOpen = true)}>Unregister Device</button>
-          <button class="dropdown-item" on:click={() => ($isNewDeviceDialogueBoxOpen = true)}>New Device</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<style>
-  button:focus{
-    outline: 0px;
-  }
-</style>
+<Navbar
+  sticky="top"
+  color="light"
+  light
+  expand
+>
+  <NavbarBrand href="#">Circuit Simulation</NavbarBrand>
+  <NavbarToggler on:click={() => (isMenuBarOpen = !isMenuBarOpen)}></NavbarToggler>
+  <Collapse navbar isOpen={isMenuBarOpen}>
+    <Nav navbar>
+      <Dropdown nav inNavbar>
+        <DropdownToggle nav caret>View</DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem on:click={eventHandler.zoomInClick}>Zoom In</DropdownItem>
+          <DropdownItem on:click={eventHandler.zoomOutClick}>Zoom Out</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      <Dropdown nav inNavbar>
+        <DropdownToggle nav caret>Tools</DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem on:click={() => ($isRegisterDeviceDialogueBoxOpen = true)}>Register Device</DropdownItem>
+          <DropdownItem on:click={() => ($isUnregisterDeviceDialogueBoxOpen = true)}>Unregister Device</DropdownItem>
+          <DropdownItem on:click={() => ($isNewDeviceDialogueBoxOpen = true)}>New Device</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </Nav>
+  </Collapse>
+</Navbar>

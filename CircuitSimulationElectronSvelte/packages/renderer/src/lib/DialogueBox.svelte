@@ -1,33 +1,33 @@
 <script lang="ts">
-    import Modal from "sv-bootstrap-modal";
-
+    import { 
+        Button, 
+        Modal, 
+        ModalBody, 
+        ModalFooter, 
+        ModalHeader,
+        Alert,
+        Form
+    } from 'sveltestrap';
+    
     export let dialogueBoxName: string;
-    export let isOpen: boolean = false;
     export let onOpen: any = () => {};
+    export let isOpen: boolean = false;
 </script>
-  
+
 <Modal 
-    bind:open={isOpen}
-    dialogClasses="modal-dialog-centered"
-    onOpened={onOpen}
+    bind:isOpen={isOpen} 
+    centered={true}
+    on:open={onOpen}
 >
-    <div class="modal-header">
-        <h5 class="modal-title">{dialogueBoxName}</h5>
-        <button type="button" class="close" on:click={() => (isOpen = false)}>
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <form action="#" on:submit>
-        <div class="modal-body">
-            <slot />
-            <div class="alert alert-danger" role="alert" style="display: none;">
-                Invalid Input
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" on:click={() => (isOpen = false)}>Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-    </form>
+    <ModalHeader toggle={() => (isOpen = false)}>{dialogueBoxName}</ModalHeader>
+    <Form action="#" on:submit>
+        <ModalBody>
+        <slot />
+        <Alert color="danger" isOpen={false} dismissible>Invalid Input</Alert>
+        </ModalBody>
+        <ModalFooter>
+            <Button color="secondary" on:click={() => (isOpen = false)}>Close</Button>
+            <Button type="submit" color="primary">Save changes</Button>
+        </ModalFooter>
+    </Form>
 </Modal>
-  
