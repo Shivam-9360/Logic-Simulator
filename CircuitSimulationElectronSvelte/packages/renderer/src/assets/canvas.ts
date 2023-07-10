@@ -1,4 +1,5 @@
 import { simcir } from '../external/js/simcir.js'
+import '../external/js/simcir-basicset.js'
 
 let simcirDiv: HTMLElement = document.querySelector(".simcir");
 

@@ -31,6 +31,8 @@
 //  BusIn
 //  BusOut
 
+import { simcir } from './simcir.js'
+
 !function($s) {
 
   'use strict';

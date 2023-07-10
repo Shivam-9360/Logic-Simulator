@@ -16,3 +16,8 @@
 <div class="simcir">
 </div>
 
+<style>
+    @import '../external/css/simcir.css';
+    @import '../external/css/simcir-basicset.css';
+</style>
+
