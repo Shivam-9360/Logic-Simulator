@@ -6,8 +6,8 @@
     "moduleResolution": "bundler"
   },
     "include": [
-    "packages/renderer/vite.config.ts",
-    "packages/main/vite.config.ts",
-    "packages/preload/vite.config.ts"
+    "app/renderer/vite.config.ts",
+    "app/main/vite.config.ts",
+    "app/preload/vite.config.ts"
   ]
 }

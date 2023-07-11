@@ -5,10 +5,10 @@
   "type": "module",
   "main": "dist/main/main.cjs",
   "scripts": {
-    "dev:renderer": "vite packages/renderer",
-    "build:renderer": "tsc -p packages/renderer/tsconfig.json --noEmit && vite build packages/renderer",
-    "build:preload": "tsc -p packages/preload/tsconfig.json --noEmit && vite build packages/preload",
-    "build:main": "tsc -p packages/main/tsconfig.json --noEmit && vite build packages/main",
+    "dev:renderer": "vite app/renderer",
+    "build:renderer": "tsc -p app/renderer/tsconfig.json --noEmit && vite build app/renderer",
+    "build:preload": "tsc -p app/preload/tsconfig.json --noEmit && vite build app/preload",
+    "build:main": "tsc -p app/main/tsconfig.json --noEmit && vite build app/main",
     "build": "npm run build:renderer && npm run build:preload && npm run build:main",
     "start": "electron ."
   },

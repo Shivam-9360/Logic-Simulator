@@ -836,4 +836,39 @@ import { simcir } from './simcir.js'
     };
   });
 
+  // physical devices
+  fetch('/Home/GetSignal')
+    .then(response => response.json())
+    .then((data) => {
+      var signal = data.signal == 1 ? onValue : offValue;
+
+      $s.registerDevice('Hardware (IN)', function(device) {
+        device.addOutput();
+        var super_createUI = device.createUI;
+        device.createUI = function() {
+          super_createUI();
+          device.$ui.addClass('simcir-basicset-dc');
+        };
+        device.$ui.on('deviceAdd', function() {        
+          fetch('/Home/GetSignal')
+          .then(response => response.json())
+          .then((data) => {
+            signal = data.signal == 1 ? onValue : offValue;
+            device.getOutputs()[0].setValue(signal);
+          })
+          .catch(device.getOutputs()[0].setValue(signal))
+        });
+        device.$ui.on('deviceRemove', function() {
+          device.getOutputs()[0].setValue(null);
+        });
+      });
+       
+      var simcirDiv = document.querySelector(".simcir");
+      var circuitData = simcir.controller([simcirDiv.querySelector(".simcir-workspace")]).data();
+      circuitData.toolbox = [{"type" : "Hardware (IN)"}, ...circuitData.toolbox]
+      simcir.setupSimcir([simcirDiv], circuitData);
+    })
+    .catch(error => console.error('Unable to get data =>', error));
+
+
 }(simcir);
