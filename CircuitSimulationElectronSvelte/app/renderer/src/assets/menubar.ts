@@ -38,10 +38,13 @@ export function registerDeviceFormSubmit () {
     }
 
     var circuitData = getCircuitData();
-    circuitData.showToolbox = false;
-    circuitData.toolbox = {};
+
+    // converting string to int
     circuitWidth = +circuitWidth;
     circuitHeight = +circuitHeight;
+
+    circuitData.showToolbox = false;
+    circuitData.toolbox = {};
     circuitData.width = circuitWidth;
     circuitData.height = circuitHeight;
 
@@ -131,7 +134,7 @@ export function newDeviceFormSubmit () {
         numberOfInputs == '' ||
         +numberOfInputs == 0) {
         jQuery('.alert').show();
-        return;
+        return; 
     }
 
     var circuitData = getCircuitData();

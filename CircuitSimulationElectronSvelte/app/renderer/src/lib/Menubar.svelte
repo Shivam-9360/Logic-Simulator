@@ -77,7 +77,7 @@
     <Input type="text" id="deviceLabel" required />
   </FormGroup>  
   <FormGroup>
-    <Label for="numberOfInputs">Circuit Height:</Label>
+    <Label for="numberOfInputs">Numer Of Inputs:</Label>
     <Input type="number" id="numberOfInputs" min={2} required />
   </FormGroup> 
 </DialogueBox>

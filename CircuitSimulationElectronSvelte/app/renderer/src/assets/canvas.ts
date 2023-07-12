@@ -1,7 +1,7 @@
 import { simcir } from '../external/js/simcir.js'
 import '../external/js/simcir-basicset.js'
 
-let simcirDiv: HTMLElement = document.querySelector(".simcir");
+let simcirDiv: HTMLElement;
 
 export function setSimcirDiv(){
     simcirDiv = document.querySelector(".simcir");
