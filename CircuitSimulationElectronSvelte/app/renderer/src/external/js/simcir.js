@@ -1701,6 +1701,8 @@ simcir.$ = function() {
     var workspaceWidth = data.width;
     var workspaceHeight = data.height;
     var barWidth = unit;
+    // Custom simcir
+    // Updated the formula for toolboxWidth as some device labels did not fit
     var toolboxWidth = data.showToolbox? unit * 9 + barWidth: 0;
 
     var connectorsValid = true;
@@ -2276,7 +2278,8 @@ simcir.$ = function() {
     $placeHolder.append($table);
   };
   
-  // auto start of the program
+  // Custom simcir
+  // Removed onLoad function in simcir as this was intended for setting up the canvas based on JSON placed directly in HTML
   /*$(function() {
     $('.simcir').each(function() {
       var $placeHolder = $(this);
@@ -2303,6 +2306,8 @@ simcir.$ = function() {
     graphics: graphics,
     controller: controller,
     unit: unit,
+    // Custom simcir
+    // Added fontSize variable to simcir object so that it can be accessed globally throughout the program (Zoom)
     fontSize: fontSize
   });
 }(simcir);
@@ -2520,6 +2525,7 @@ simcir.$ = function() {
     };
   };
 
+  // Custom simcir
   // register user-defined devices
   // check for local storage support
   if (typeof(Storage) !== "undefined") {
