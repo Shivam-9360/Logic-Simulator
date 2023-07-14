@@ -1,14 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { setSimcirDiv, setCircuitData, windowResize } from "../assets/canvas";
+    import { setDevice, windowResize } from "../assets/canvas";
 
-    onMount(() => {
-        setSimcirDiv();
-        setCircuitData({
-            "width": window.innerWidth,
-            "height": window.innerHeight - document.querySelector(".navbar").clientHeight
-        });
-    });
+    onMount(setDevice);
 </script>
 
 <svelte:window on:resize={windowResize} />
