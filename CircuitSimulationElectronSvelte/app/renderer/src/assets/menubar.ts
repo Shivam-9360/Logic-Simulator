@@ -126,8 +126,8 @@ export function registerDeviceFormSubmit () {
 export function newDeviceFormSubmit () {
     let newDeviceForm = this;
     let deviceType = newDeviceForm.elements['selectNewDevice'].value;
-    let deviceLabel = newDeviceForm.elements['#deviceLabel'].value;
-    let numberOfInputs = newDeviceForm.elements['#numberOfInputs'].value;
+    let deviceLabel = newDeviceForm.elements['deviceLabel'].value;
+    let numberOfInputs = newDeviceForm.elements['numberOfInputs'].value;
 
     // Validating form
     if (deviceLabel == '' ||
